@@ -1,204 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HustleTrack</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HustleTrack</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f172a;
-      color: #f8fafc;
-    }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+}
 
-    .app {
-      max-width: 700px;
-      margin: auto;
-      padding: 24px 16px 50px;
-    }
+.app {
+  max-width: 760px;
+  margin: auto;
+  padding: 20px 14px 90px;
+}
 
-    header {
-      margin-bottom: 24px;
-    }
+header {
+  padding: 10px 4px 20px;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 32px;
-    }
+h1 {
+  margin: 0;
+  font-size: 32px;
+}
 
-    .subtitle {
-      color: #94a3b8;
-      margin-top: 6px;
-    }
+.subtitle {
+  color: #94a3b8;
+  margin-top: 5px;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
 
-    .card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
 
-    .stat-label {
-      color: #94a3b8;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
+.stat-label {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
 
-    .stat-value {
-      font-size: 28px;
-      font-weight: bold;
-    }
+.stat-value {
+  font-size: 27px;
+  font-weight: bold;
+}
 
-    h2 {
-      margin-top: 0;
-      font-size: 20px;
-    }
+.goal-bar {
+  height: 10px;
+  background: #0f172a;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
 
-    label {
-      display: block;
-      margin-bottom: 12px;
-      color: #cbd5e1;
-      font-size: 14px;
-    }
+.goal-fill {
+  height: 100%;
+  background: #22c55e;
+}
 
-    input,
-    select {
-      width: 100%;
-      margin-top: 6px;
-      padding: 13px;
-      border-radius: 10px;
-      border: 1px solid #475569;
-      background: #0f172a;
-      color: white;
-      font-size: 16px;
-    }
+.goal-text {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 7px;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: #22c55e;
-      color: #052e16;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
+.tab {
+  background: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  padding: 11px 5px;
+  border-radius: 10px;
+  font-size: 13px;
+}
 
-    .rate {
-      font-size: 30px;
-      font-weight: bold;
-      margin-top: 8px;
-    }
+.tab.active {
+  background: #22c55e;
+  color: #052e16;
+  border-color: #22c55e;
+}
 
-    .verdict {
-      margin-top: 6px;
-      color: #94a3b8;
-    }
+.section {
+  display: none;
+}
 
-    .offer {
-      padding: 14px 0;
-      border-bottom: 1px solid #334155;
-    }
+.section.active {
+  display: block;
+}
 
-    .offer:last-child {
-      border-bottom: none;
-    }
+h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
 
-    .offer-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
+label {
+  display: block;
+  margin-bottom: 12px;
+  color: #cbd5e1;
+  font-size: 14px;
+}
 
-    .offer-name {
-      font-weight: bold;
-    }
+input,
+select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: white;
+  font-size: 16px;
+}
 
-    .offer-rate {
-      font-weight: bold;
-      color: #4ade80;
-    }
+button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: #052e16;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .progress {
-      height: 10px;
-      background: #0f172a;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
+button:hover {
+  opacity: .9;
+}
 
-    .progress-bar {
-      height: 100%;
-      background: #22c55e;
-    }
+.secondary {
+  background: #334155;
+  color: #f8fafc;
+}
 
-    .small {
-      color: #94a3b8;
-      font-size: 13px;
-      margin-top: 7px;
-    }
+.danger {
+  background: #ef4444;
+  color: white;
+}
 
-    .empty {
-      color: #94a3b8;
-      text-align: center;
-      padding: 20px 0;
-    }
+.small-btn {
+  width: auto;
+  padding: 7px 10px;
+  font-size: 12px;
+}
 
-    .danger {
-      background: #ef4444;
-      color: white;
-      margin-top: 10px;
-    }
+.rate {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 8px;
+}
 
-    @media (max-width: 500px) {
-      .stats {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.verdict {
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+.offer {
+  padding: 15px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.offer:last-child {
+  border-bottom: none;
+}
+
+.offer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.offer-name {
+  font-weight: bold;
+}
+
+.offer-rate {
+  font-weight: bold;
+  color: #4ade80;
+}
+
+.progress {
+  height: 10px;
+  background: #0f172a;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #22c55e;
+}
+
+.small {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 7px;
+}
+
+.empty {
+  color: #94a3b8;
+  text-align: center;
+  padding: 22px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.mini-stat {
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.mini-label {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.mini-value {
+  font-size: 21px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+@media (max-width: 500px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-value {
+    font-size: 23px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <header>
-    <h1>💰 HustleTrack</h1>
-    <div class="subtitle">Track your side hustles. Know your $/hour.</div>
-  </header>
+<header>
+  <h1>💰 HustleTrack</h1>
+  <div class="subtitle">Track your side hustles. Know your $/hour.</div>
+</header>
 
-  <div class="stats">
+<div class="stats">
 
-    <div class="card">
-      <div class="stat-label">Total Earnings</div>
-      <div class="stat-value" id="totalEarnings">$0.00</div>
-    </div>
-
-    <div class="card">
-      <div class="stat-label">Average $/Hour</div>
-      <div class="stat-value" id="averageRate">$0.00</div>
-    </div>
-
+  <div class="card">
+    <div class="stat-label">Total Earnings</div>
+    <div class="stat-value" id="totalEarnings">$0.00</div>
   </div>
+
+  <div class="card">
+    <div class="stat-label">Average $/Hour</div>
+    <div class="stat-value" id="averageRate">$0.00/hr</div>
+  </div>
+
+</div>
+
+<div class="card">
+  <div class="stat-label">Monthly Goal</div>
+
+  <label>
+    Goal ($)
+    <input id="monthlyGoal" type="number" min="0" step="1" value="1000">
+  </label>
+
+  <div class="goal-bar">
+    <div class="goal-fill" id="goalFill"></div>
+  </div>
+
+  <div class="goal-text" id="goalText">$0 of $1,000</div>
+</div>
+
+<div class="tabs">
+
+  <button class="tab active" onclick="showTab('home', this)">
+    🏠 Home
+  </button>
+
+  <button class="tab" onclick="showTab('offers', this)">
+    🎮 Offers
+  </button>
+
+  <button class="tab" onclick="showTab('earnings', this)">
+    💵 Earnings
+  </button>
+
+  <button class="tab" onclick="showTab('stats', this)">
+    📊 Stats
+  </button>
+
+</div>
+
+<!-- HOME -->
+
+<div id="home" class="section active">
 
   <div class="card">
 
@@ -252,9 +391,15 @@
 
   </div>
 
+</div>
+
+<!-- OFFERS -->
+
+<div id="offers" class="section">
+
   <div class="card">
 
-    <h2>🎮 Active Offers</h2>
+    <h2>🎮 Track New Offer</h2>
 
     <label>
       Offer Name
@@ -283,17 +428,69 @@
 
     <button onclick="addOffer()">Track Offer</button>
 
-    <div id="offers" style="margin-top:16px;"></div>
+  </div>
+
+  <div class="card">
+
+    <h2>Active Offers</h2>
+
+    <div id="offerList"></div>
+
+  </div>
+
+</div>
+
+<!-- EARNINGS -->
+
+<div id="earnings" class="section">
+
+  <div class="card">
+
+    <h2>💵 Earnings History</h2>
+
+    <div id="history"></div>
+
+  </div>
+
+</div>
+
+<!-- STATS -->
+
+<div id="stats" class="section">
+
+  <div class="card">
+
+    <h2>📊 Hustle Stats</h2>
+
+    <div class="stat-grid">
+
+      <div class="mini-stat">
+        <div class="mini-label">Total Earnings</div>
+        <div class="mini-value" id="statTotal">$0</div>
+      </div>
+
+      <div class="mini-stat">
+        <div class="mini-label">Total Hours</div>
+        <div class="mini-value" id="statHours">0</div>
+      </div>
+
+      <div class="mini-stat">
+        <div class="mini-label">Average $/Hour</div>
+        <div class="mini-value" id="statRate">$0</div>
+      </div>
+
+      <div class="mini-stat">
+        <div class="mini-label">Best Hustle</div>
+        <div class="mini-value" id="bestHustle">—</div>
+      </div>
+
+    </div>
 
   </div>
 
   <div class="card">
 
-    <h2>📊 Earnings History</h2>
-
-    <div id="history">
-      <div class="empty">No earnings recorded yet.</div>
-    </div>
+    <h2>⚙️ Settings</h2>
 
     <button class="danger" onclick="clearData()">
       Clear All Data
@@ -303,80 +500,206 @@
 
 </div>
 
+</div>
+
 <script>
 
-let earnings = JSON.parse(localStorage.getItem("hustleEarnings")) || [];
-let offers = JSON.parse(localStorage.getItem("hustleOffers")) || [];
+let earnings =
+  JSON.parse(localStorage.getItem("hustleEarnings")) || [];
+
+let offers =
+  JSON.parse(localStorage.getItem("hustleOffers")) || [];
+
+let monthlyGoal =
+  Number(localStorage.getItem("hustleMonthlyGoal")) || 1000;
+
 
 function money(number) {
   return "$" + Number(number).toFixed(2);
 }
 
+
 function save() {
-  localStorage.setItem("hustleEarnings", JSON.stringify(earnings));
-  localStorage.setItem("hustleOffers", JSON.stringify(offers));
+
+  localStorage.setItem(
+    "hustleEarnings",
+    JSON.stringify(earnings)
+  );
+
+  localStorage.setItem(
+    "hustleOffers",
+    JSON.stringify(offers)
+  );
+
+  localStorage.setItem(
+    "hustleMonthlyGoal",
+    monthlyGoal
+  );
 }
+
+
+function showTab(tabName, button) {
+
+  document.querySelectorAll(".section").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.remove("active");
+  });
+
+  document.getElementById(tabName).classList.add("active");
+
+  button.classList.add("active");
+}
+
 
 function updateDashboard() {
 
-  const total = earnings.reduce((sum, item) => {
-    return sum + item.amount;
-  }, 0);
+  const total = earnings.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0
+  );
 
-  const hours = earnings.reduce((sum, item) => {
-    return sum + item.hours;
-  }, 0);
+  const hours = earnings.reduce(
+    (sum, item) => sum + Number(item.hours),
+    0
+  );
 
-  const average = hours > 0 ? total / hours : 0;
+  const average =
+    hours > 0 ? total / hours : 0;
 
-  document.getElementById("totalEarnings").textContent = money(total);
+  document.getElementById("totalEarnings").textContent =
+    money(total);
 
   document.getElementById("averageRate").textContent =
     money(average) + "/hr";
 
+  document.getElementById("monthlyGoal").value =
+    monthlyGoal;
+
+  const percent =
+    monthlyGoal > 0
+      ? Math.min(100, (total / monthlyGoal) * 100)
+      : 0;
+
+  document.getElementById("goalFill").style.width =
+    percent + "%";
+
+  document.getElementById("goalText").textContent =
+    money(total) +
+    " of " +
+    money(monthlyGoal) +
+    " (" +
+    percent.toFixed(0) +
+    "%)";
+
+  document.getElementById("statTotal").textContent =
+    money(total);
+
+  document.getElementById("statHours").textContent =
+    hours.toFixed(1);
+
+  document.getElementById("statRate").textContent =
+    money(average) + "/hr";
+
+  calculateBestHustle();
+
   renderHistory();
+
   renderOffers();
 }
 
+
+function calculateBestHustle() {
+
+  const totals = {};
+
+  earnings.forEach(item => {
+
+    if (!totals[item.hustle]) {
+      totals[item.hustle] = 0;
+    }
+
+    totals[item.hustle] += Number(item.amount);
+
+  });
+
+  let best = "—";
+  let highest = 0;
+
+  Object.keys(totals).forEach(hustle => {
+
+    if (totals[hustle] > highest) {
+      highest = totals[hustle];
+      best = hustle;
+    }
+
+  });
+
+  document.getElementById("bestHustle").textContent =
+    best;
+}
+
+
 function calculateRate() {
 
-  const reward = Number(document.getElementById("reward").value) || 0;
+  const reward =
+    Number(document.getElementById("reward").value) || 0;
 
-  const hours = Number(document.getElementById("hours").value) || 0;
+  const hours =
+    Number(document.getElementById("hours").value) || 0;
 
-  const rate = hours > 0 ? reward / hours : 0;
+  const rate =
+    hours > 0 ? reward / hours : 0;
 
   document.getElementById("calculatedRate").textContent =
     money(rate) + "/hr";
 
-  let message = "Enter the reward and time.";
+  let message =
+    "Enter the reward and time.";
 
   if (hours > 0 && reward > 0) {
 
     if (rate >= 25) {
       message = "🔥 Very strong hourly return";
-    } else if (rate >= 15) {
+    }
+    else if (rate >= 15) {
       message = "🟢 Solid hourly return";
-    } else if (rate >= 10) {
+    }
+    else if (rate >= 10) {
       message = "🟡 Moderate hourly return";
-    } else {
+    }
+    else {
       message = "🔴 Low hourly return";
     }
 
   }
 
-  document.getElementById("verdict").textContent = message;
+  document.getElementById("verdict").textContent =
+    message;
 }
 
-document.getElementById("reward").addEventListener(
-  "input",
-  calculateRate
-);
 
-document.getElementById("hours").addEventListener(
-  "input",
-  calculateRate
-);
+document.getElementById("reward")
+.addEventListener("input", calculateRate);
+
+document.getElementById("hours")
+.addEventListener("input", calculateRate);
+
+
+document.getElementById("monthlyGoal")
+.addEventListener("input", function() {
+
+  monthlyGoal =
+    Number(this.value) || 0;
+
+  save();
+
+  updateDashboard();
+
+});
+
 
 function addEarning() {
 
@@ -390,24 +713,34 @@ function addEarning() {
     Number(document.getElementById("workedHours").value);
 
   if (!amount || amount <= 0) {
+
     alert("Enter an amount earned.");
+
     return;
   }
 
   earnings.push({
+
     hustle: hustle,
+
     amount: amount,
+
     hours: hours || 0,
+
     date: new Date().toLocaleDateString()
+
   });
 
   save();
 
   document.getElementById("amount").value = "";
+
   document.getElementById("workedHours").value = "";
 
   updateDashboard();
+
 }
+
 
 function addOffer() {
 
@@ -427,28 +760,72 @@ function addOffer() {
     Number(document.getElementById("remainingHours").value);
 
   if (!name || !reward || !goal) {
-    alert("Enter the offer name, reward and goal.");
+
+    alert(
+      "Enter the offer name, reward and goal."
+    );
+
     return;
   }
 
   offers.push({
-    name,
-    reward,
-    goal,
-    current,
-    remainingHours
+
+    name: name,
+
+    reward: reward,
+
+    goal: goal,
+
+    current: current || 0,
+
+    remainingHours: remainingHours || 0
+
   });
 
   save();
 
   document.getElementById("offerName").value = "";
+
   document.getElementById("offerReward").value = "";
+
   document.getElementById("goalLevel").value = "";
+
   document.getElementById("currentLevel").value = "";
+
   document.getElementById("remainingHours").value = "";
 
   updateDashboard();
+
 }
+
+
+function deleteEarning(index) {
+
+  if (!confirm("Delete this earning?")) {
+    return;
+  }
+
+  earnings.splice(index, 1);
+
+  save();
+
+  updateDashboard();
+}
+
+
+function deleteOffer(index) {
+
+  if (!confirm("Delete this offer?")) {
+    return;
+  }
+
+  offers.splice(index, 1);
+
+  save();
+
+  updateDashboard();
+}
+
 
 function renderHistory() {
 
@@ -456,15 +833,20 @@ function renderHistory() {
     document.getElementById("history");
 
   if (earnings.length === 0) {
+
     container.innerHTML =
       '<div class="empty">No earnings recorded yet.</div>';
+
     return;
   }
 
   container.innerHTML = earnings
     .slice()
     .reverse()
-    .map(item => {
+    .map((item, reverseIndex) => {
+
+      const index =
+        earnings.length - 1 - reverseIndex;
 
       const rate =
         item.hours > 0
@@ -472,9 +854,13 @@ function renderHistory() {
           : 0;
 
       return `
+
         <div class="offer">
+
           <div class="offer-top">
+
             <div>
+
               <div class="offer-name">
                 ${item.hustle}
               </div>
@@ -482,28 +868,45 @@ function renderHistory() {
               <div class="small">
                 ${item.date}
               </div>
+
             </div>
 
             <div class="offer-rate">
               ${money(item.amount)}
             </div>
+
           </div>
 
           <div class="small">
-            ${item.hours.toFixed(1)} hours ·
+            ${Number(item.hours).toFixed(1)}
+            hours ·
             ${money(rate)}/hr
           </div>
+
+          <div class="actions">
+
+            <button
+              class="danger small-btn"
+              onclick="deleteEarning(${index})">
+              Delete
+            </button>
+
+          </div>
+
         </div>
+
       `;
 
     })
     .join("");
+
 }
+
 
 function renderOffers() {
 
   const container =
-    document.getElementById("offers");
+    document.getElementById("offerList");
 
   if (offers.length === 0) {
 
@@ -541,6 +944,7 @@ function renderOffers() {
           : 0;
 
       return `
+
         <div class="offer">
 
           <div class="offer-top">
@@ -565,8 +969,11 @@ function renderOffers() {
           </div>
 
           <div class="small">
-            ${offer.current} / ${offer.goal}
+
+            ${offer.current} /
+            ${offer.goal}
             · ${percent.toFixed(1)}% complete
+
           </div>
 
           <div class="small">
@@ -583,32 +990,51 @@ function renderOffers() {
             ${money(remainingRate)}/hr
           </div>
 
+          <div class="actions">
+
+            <button
+              class="danger small-btn"
+              onclick="deleteOffer(${index})">
+              Delete
+            </button>
+
+          </div>
+
         </div>
+
       `;
 
     })
     .join("");
+
 }
+
 
 function clearData() {
 
   if (
     confirm(
-      "Delete all HustleTrack data?"
+      "Delete ALL HustleTrack data?"
     )
   ) {
 
     earnings = [];
+
     offers = [];
 
     localStorage.removeItem("hustleEarnings");
+
     localStorage.removeItem("hustleOffers");
 
     updateDashboard();
+
   }
+
 }
 
+
 updateDashboard();
+
 calculateRate();
 
 </script>
