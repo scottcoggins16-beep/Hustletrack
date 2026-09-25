@@ -681,7 +681,19 @@ function calculateBestHustle(){
       highestRate = rate;
       best = hustle;
 
-    }function renderHustlePerformance(totals){
+    }
+
+  });
+
+  document.getElementById("bestHustle")
+    .textContent = best;
+
+  renderHustlePerformance(totals);
+
+}
+
+
+function renderHustlePerformance(totals){
 
   const container =
     document.getElementById("hustlePerformance");
@@ -754,49 +766,6 @@ function calculateBestHustle(){
     }).join("");
 
 }
-
-  });
-
-  document.getElementById("bestHustle")
-    .textContent = best;
-
-  renderHustlePerformance(totals);
-
-}
-
-  const totals = {};
-
-  earnings.forEach(item => {
-
-    if(!totals[item.hustle]){
-      totals[item.hustle] = 0;
-    }
-
-    totals[item.hustle] += Number(item.amount);
-
-  });
-
-  let best = "—";
-  let highest = 0;
-
-  Object.keys(totals).forEach(hustle => {
-
-    if(totals[hustle] > highest){
-
-      highest = totals[hustle];
-
-      best = hustle;
-
-    }
-
-  });
-
-  document.getElementById("bestHustle")
-    .textContent = best;
-
-}
-
-
 function calculateRate(){
 
   const reward =
