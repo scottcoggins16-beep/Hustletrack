@@ -506,6 +506,13 @@ button:hover{
 
   <div class="card">
 
+  <h2>💰 Hustle Performance</h2>
+
+  <div id="hustlePerformance"></div>
+
+</div>
+  <div class="card">
+
     <h2>⚙️ Settings</h2>
 
     <button class="danger" onclick="clearData()">
@@ -640,6 +647,122 @@ function updateDashboard(){
 
 
 function calculateBestHustle(){
+
+  const totals = {};
+
+  earnings.forEach(item => {
+
+    if(!totals[item.hustle]){
+      totals[item.hustle] = {
+        amount: 0,
+        hours: 0
+      };
+    }
+
+    totals[item.hustle].amount += Number(item.amount);
+    totals[item.hustle].hours += Number(item.hours);
+
+  });
+
+  let best = "—";
+  let highestRate = 0;
+
+  Object.keys(totals).forEach(hustle => {
+
+    const data = totals[hustle];
+
+    const rate =
+      data.hours > 0
+        ? data.amount / data.hours
+        : 0;
+
+    if(rate > highestRate){
+
+      highestRate = rate;
+      best = hustle;
+
+    }function renderHustlePerformance(totals){
+
+  const container =
+    document.getElementById("hustlePerformance");
+
+  const hustles =
+    Object.keys(totals);
+
+  if(hustles.length === 0){
+
+    container.innerHTML =
+      '<div class="empty">Add earnings to see hustle performance.</div>';
+
+    return;
+
+  }
+
+  hustles.sort((a,b) => {
+
+    const rateA =
+      totals[a].hours > 0
+        ? totals[a].amount / totals[a].hours
+        : 0;
+
+    const rateB =
+      totals[b].hours > 0
+        ? totals[b].amount / totals[b].hours
+        : 0;
+
+    return rateB - rateA;
+
+  });
+
+  container.innerHTML =
+    hustles.map((hustle,index) => {
+
+      const data =
+        totals[hustle];
+
+      const rate =
+        data.hours > 0
+          ? data.amount / data.hours
+          : 0;
+
+      return `
+
+        <div class="offer">
+
+          <div class="offer-top">
+
+            <div class="offer-name">
+              ${index === 0 ? "🏆 " : ""}
+              ${hustle}
+            </div>
+
+            <div class="offer-rate">
+              ${money(rate)}/hr
+            </div>
+
+          </div>
+
+          <div class="small">
+            ${money(data.amount)} earned
+            · ${data.hours.toFixed(1)} hours
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+  });
+
+  document.getElementById("bestHustle")
+    .textContent = best;
+
+  renderHustlePerformance(totals);
+
+}
 
   const totals = {};
 
