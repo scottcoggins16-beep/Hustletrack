@@ -1,0 +1,11 @@
+{
+  "name": "HustleTrack",
+  "short_name": "HustleTrack",
+  "description": "Track your side hustle earnings, offers, hours, and performance.",
+  "start_url": "/Hustletrack/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "orientation": "portrait",
+  "icons": []
+}
